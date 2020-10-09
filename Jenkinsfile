@@ -27,7 +27,9 @@ pipeline {
 
         stage('Counter Stage') {
             steps {
-                sh "for i in {1..10}; do echo $i; sleep 1; done;"
+                sh "chmod +x counter.sh"
+                sh 'echo "RUNNING COUNTER"'
+                sh './counter.sh'
             }
         }
 
