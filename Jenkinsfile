@@ -25,6 +25,12 @@ pipeline {
             }
         }
 
+        stage('Counter Stage') {
+            steps {
+                sh 'for i in {1..10}; do echo $i; done;'
+            }
+        }
+
         stage('Publish Stage') {
             steps {
                 sh 'echo "PUBLISH TO ARTIFACTORY"'
