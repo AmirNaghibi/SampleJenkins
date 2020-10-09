@@ -27,7 +27,7 @@ pipeline {
 
         stage('Counter Stage') {
             steps {
-                sh 'for i in {1..10}; do echo $i; sleep 1; done;'
+                sh "for i in {1..10}; do echo $i; sleep 1; done;"
             }
         }
 
