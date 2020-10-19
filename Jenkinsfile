@@ -1,41 +1,68 @@
+
+final String DEFAULT_AGENT_LABEL = "any"
+
 pipeline {
-    agent any
+    options {
+        timeout(time: 20, unit: 'SECONDS')
+    }
+
+    parameters {
+        string(name: 'AGENT_LABEL', defaultValue: DEFAULT_AGENT_LABEL, description:'Agent where the build will be tested')
+        string(name: 'USERNAME', defaultValue: 'Amir', description:'Name of the user who is starting the build')
+        choice(name: 'CHOICES', choices: ['one', 'two', 'three'], description: 'Choose an option from the selection')
+        password(name: 'PASSWORD', defaultValue: 'SECRET', description: 'A secret password')
+    }
+
+    environment {
+        String OS_NAME = "MACOS"
+    }
+
+    agent {
+        label(params.AGENT_LABEL ? "${params.AGENT_LABEL}" : DEFAULT_AGENT_LABEL)
+    }
+
     stages {
         stage('Build Stage') {
             steps {
-                sh 'echo "COMPILING THE CODE"'
+                echo "COMPILING THE CODE"
                 sh 'javac src/main/java/Calculator.java'
-                sh '''
-                    echo "Multiline shell steps works too"
-                    ls -lah
-                '''
+                echo "Multiline shell steps works too"
+                sh 'ls -lah'
             }
         }
 
         stage('Test Stage') {
             steps {
-                sh 'echo "UNIT AND INTEGRATION TESTS"'
+                echo "UNIT AND INTEGRATION TESTS"
                 sh 'java src/main/java/Calculator'
+            }
+        }
+
+        stage('Choice Result') {
+            steps {
+                echo "You chosed ${params.CHOICES}"
+                echo "Your password is ${params.PASSWORD}"
+                echo "Operating system is ${env.OS_NAME}"
             }
         }
 
         stage('Create Artifact Stage') {
             steps {
-                sh 'echo "CREATING ARTIFACTS"'
+                echo "CREATING ARTIFACTS"
             }
         }
 
         stage('Counter Stage') {
             steps {
                 sh "chmod +x counter.sh"
-                sh 'echo "RUNNING COUNTER"'
+                echo "RUNNING COUNTER"
                 sh './counter.sh'
             }
         }
 
         stage('Publish Stage') {
             steps {
-                sh 'echo "PUBLISH TO ARTIFACTORY"'
+                echo "PUBLISH TO ARTIFACTORY"
             }
         }
     }
