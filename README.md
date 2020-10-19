@@ -9,5 +9,6 @@
 
 
 ### Resources
-[managing your dependencies](https://docs.gradle.org/current/userguide/building_java_projects.html#sec:java_dependency_management_overview)
-[official jenkins documentation](https://www.jenkins.io/doc)
+
+- [managing your dependencies](https://docs.gradle.org/current/userguide/building_java_projects.html#sec:java_dependency_management_overview)
+- [official jenkins documentation](https://www.jenkins.io/doc)
