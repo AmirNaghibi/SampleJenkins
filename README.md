@@ -4,7 +4,7 @@
 - build code (compile)
 - test code (JUnit)
 - publish artifacts
-
+- Clean workspace
 
 
 
